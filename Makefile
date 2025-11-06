@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -std=c99 -g
+CFLAGS = -Werror -Wextra -Wall -g
 SRC = ft_isalpha.c \
 	  ft_isdigit.c \
 	  ft_isalnum.c \
@@ -67,11 +67,5 @@ re: fclean all
 
 bonus:
 	$(MAKE) SRC="$(SRC) $(SRC_BONUS)"
-
-test: bonus
-	cc -o main main.c -L. -lft -lbsd -g
-	./main
-	make fclean
-#	rm main
 
 .PHONY: all clean fclean re

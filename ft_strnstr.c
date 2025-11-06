@@ -6,7 +6,7 @@
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 11:45:31 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/06 13:37:49 by sgil--de         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:04:31 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_strnstr(const char *s, const char *f, size_t n)
 		return (NULL);
 	if (!f[0] && !s[0])
 		return ("");
+	if (!f[0])
+		return ((char *)s);
 	while (i < n && s[i])
 	{
 		if (s[i] == f[0])
