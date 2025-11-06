@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:40:16 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:06:29 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/06 12:25:06 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/06 15:22:33 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+t_list	*ft_lstlast(t_list *lst)
 {
-	char		*dest_cpy;
-	const char	*src_cpy;
+	t_list	*temp;
 
-	dest_cpy = (char *)dest;
-	src_cpy = (const char *)src;
-	if (dest_cpy < src_cpy)
-		return (ft_memcpy(dest, src, n));
-	while (n > 0)
-	{
-		dest_cpy[n - 1] = src_cpy[n - 1];
-		n--;
-	}
-	return (dest);
+	if (!lst)
+		return (NULL);
+	temp = lst;
+	while (temp->next)
+		temp = temp->next;
+	return (temp);
 }

@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:40:16 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:06:29 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/06 11:32:24 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/06 11:41:30 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+void	ft_putchar_fd(char c, int fd)
 {
-	char		*dest_cpy;
-	const char	*src_cpy;
-
-	dest_cpy = (char *)dest;
-	src_cpy = (const char *)src;
-	if (dest_cpy < src_cpy)
-		return (ft_memcpy(dest, src, n));
-	while (n > 0)
-	{
-		dest_cpy[n - 1] = src_cpy[n - 1];
-		n--;
-	}
-	return (dest);
+	write(fd, &c, 1);
 }

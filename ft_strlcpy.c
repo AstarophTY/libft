@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:40:16 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:06:29 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/05 08:46:41 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/06 10:49:59 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+size_t	ft_strlcpy(char *dst, const char *src, size_t n)
 {
-	char		*dest_cpy;
-	const char	*src_cpy;
+	size_t	i;
 
-	dest_cpy = (char *)dest;
-	src_cpy = (const char *)src;
-	if (dest_cpy < src_cpy)
-		return (ft_memcpy(dest, src, n));
-	while (n > 0)
+	if (!dst || !src)
+		return (0);
+	if (n == 0)
+		return (ft_strlen(src));
+	i = 0;
+	while (src[i] && i < n - 1)
 	{
-		dest_cpy[n - 1] = src_cpy[n - 1];
-		n--;
+		dst[i] = src[i];
+		i++;
 	}
-	return (dest);
+	dst[i] = '\0';
+	return (ft_strlen(src));
 }

@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:40:16 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:06:29 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/05 11:45:31 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/06 13:37:49 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+char	*ft_strnstr(const char *s, const char *f, size_t n)
 {
-	char		*dest_cpy;
-	const char	*src_cpy;
+	size_t	i;
+	size_t	j;
 
-	dest_cpy = (char *)dest;
-	src_cpy = (const char *)src;
-	if (dest_cpy < src_cpy)
-		return (ft_memcpy(dest, src, n));
-	while (n > 0)
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	if (!f[0] && !s[0])
+		return ("");
+	while (i < n && s[i])
 	{
-		dest_cpy[n - 1] = src_cpy[n - 1];
-		n--;
+		if (s[i] == f[0])
+		{
+			j = 0;
+			while (i + j < n && f[j] && s[i + j] == f[j])
+				j++;
+			if (!f[j])
+				return ((char *)&s[i]);
+		}
+		i++;
 	}
-	return (dest);
+	return (NULL);
 }

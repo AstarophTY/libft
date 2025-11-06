@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:40:16 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:06:29 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/05 14:18:37 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/06 10:51:55 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	char		*dest_cpy;
-	const char	*src_cpy;
+	char	*sub_str;
+	size_t	i;
 
-	dest_cpy = (char *)dest;
-	src_cpy = (const char *)src;
-	if (dest_cpy < src_cpy)
-		return (ft_memcpy(dest, src, n));
-	while (n > 0)
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return (ft_calloc(1, sizeof(char)));
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	i = 0;
+	sub_str = ft_calloc(len + 1, sizeof(char));
+	if (!sub_str)
+		return (NULL);
+	while (i < len && s[i + start])
 	{
-		dest_cpy[n - 1] = src_cpy[n - 1];
-		n--;
+		sub_str[i] = s[i + start];
+		i++;
 	}
-	return (dest);
+	return (sub_str);
 }

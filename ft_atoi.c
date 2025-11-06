@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 14:40:16 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:06:29 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/05 11:53:33 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/05 17:00:14 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int	ft_atoi(const char *s)
 {
-	char		*dest_cpy;
-	const char	*src_cpy;
+	int	result;
+	int	is_neg;
 
-	dest_cpy = (char *)dest;
-	src_cpy = (const char *)src;
-	if (dest_cpy < src_cpy)
-		return (ft_memcpy(dest, src, n));
-	while (n > 0)
+	result = 0;
+	is_neg = 1;
+	while ((*s >= 9 && *s <= 13) || *s == 32)
+		s++;
+	if (*s == '-' || *s == '+')
 	{
-		dest_cpy[n - 1] = src_cpy[n - 1];
-		n--;
+		if (*s == '-')
+			is_neg = -1;
+		s++;
 	}
-	return (dest);
+	while (ft_isdigit((int)*s))
+	{
+		result = (result * 10) + (*s - '0');
+		s++;
+	}
+	return (result * is_neg);
 }

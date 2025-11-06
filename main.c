@@ -5,52 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 12:34:39 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/04 15:50:50 by sgil--de         ###   ########.fr       */
+/*   Created: 2025/11/06 15:06:04 by sgil--de          #+#    #+#             */
+/*   Updated: 2025/11/06 15:24:49 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define BLEU "\033[00;34m"
-#define NORMAL "\033[00m"
-
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
+#include <stdio.h>
 
-void	ft_print_test_letter(char c, int (*f)(int c), int (*ft)(int c), char *name)
+void	ft_putvoidnbr(void *n)
 {
-	printf(BLEU "Function : %s | Caractere : %c | Reel : %d | FT : %d | Result : %d\n" NORMAL,
-		name,
-		c,
-		f(c),
-		ft(c),
-		f(c) == ft(c)
-	);
+	int	*nb;
+
+	nb = (int *)n;
+	printf("%d\n", *nb);
 }
 
 int	main(void)
 {
-	char	letter = '/';
-	char	phrase[] = "Salut tout le monde";
-	char	phrase2[50];
+	t_list	*lst = NULL;
+	int		n1 = 325;
+	int		n2 = 326;
+	int		n3 = 327;
+	int		n4 = 328;
+	int		n5 = 329;
 
-	ft_print_test_letter(letter, &isalpha, &ft_isalpha, "isalpha");
-	ft_print_test_letter(letter, &isdigit, &ft_isdigit, "isdigit");
-	ft_print_test_letter(letter, &isalnum, &ft_isalnum, "isalnum");
-	ft_print_test_letter(letter, &isascii, &ft_isascii, "isascii");
-	ft_print_test_letter(letter, &isprint, &ft_isprint, "isprint");
-
-	printf(BLEU "Function : strlen | Phrase : %s | Reel : %lu | FT : %lu | Result : %d\n" NORMAL,
-		phrase,
-		strlen(phrase),
-		ft_strlen(phrase),
-		strlen(phrase) == ft_strlen(phrase)
-	);
-
-	ft_memcpy(phrase2, phrase, 7);
-	phrase2[7] = 0;
-	printf("%d\n", phrase2[7]);
-
-	printf("%s\n", phrase);
+	ft_lstadd_back(&lst, ft_lstnew(&n1));
+	ft_lstadd_back(&lst, ft_lstnew(&n2));
+	ft_lstadd_back(&lst, ft_lstnew(&n3));
+	ft_lstadd_back(&lst, ft_lstnew(&n4));
+	ft_lstadd_back(&lst, ft_lstnew(&n5));
+	ft_lstiter(lst, &ft_putvoidnbr);
 }
