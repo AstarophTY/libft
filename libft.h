@@ -6,7 +6,7 @@
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:32:59 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/06 15:12:44 by sgil--de         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:39:48 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_list
 {

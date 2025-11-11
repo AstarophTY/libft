@@ -6,7 +6,7 @@
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 10:07:05 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/06 10:51:05 by sgil--de         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:48:44 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*ft_strchr(const char *s, int c)
 	size_t	i;
 
 	i = 0;
-	if (!s)
-		return (NULL);
 	while (s[i] && s[i] != (char)c)
 		i++;
 	if (s[i] == (char)c)

@@ -6,7 +6,7 @@
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:20:51 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:05:56 by sgil--de         ###   ########.fr       */
+/*   Updated: 2025/11/11 08:50:25 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	size_t		i;
 
 	i = 0;
+	if (!dest && !src)
+		return (NULL);
 	src_cpy = (const char *)src;
 	dest_cpy = (char *)dest;
 	while (i < n)

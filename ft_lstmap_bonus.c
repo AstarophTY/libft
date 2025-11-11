@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:01:21 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/06 17:06:01 by sgil--de         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:33:31 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 	t_list	*new_node;
 	t_list	*new_lst;
 	t_list	*temp;
+	void	*content;
 
 	temp = lst;
 	new_lst = NULL;
 	while (temp)
 	{
-		new_node = ft_lstnew(f(temp->content));
+		content = f(temp->content);
+		new_node = ft_lstnew(content);
 		if (!new_node)
 		{
+			if (del)
+				del(content);
 			ft_lstclear(&new_lst, del);
 			return (NULL);
 		}
