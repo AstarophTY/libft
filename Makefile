@@ -66,6 +66,6 @@ fclean: clean
 re: fclean all
 
 bonus:
-	$(MAKE) SRC="$(SRC) $(SRC_BONUS)"
+	$(MAKE) SRC="$(SRC_BONUS)"
 
 .PHONY: all clean fclean re

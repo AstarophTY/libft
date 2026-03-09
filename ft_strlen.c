@@ -6,7 +6,7 @@
 /*   By: sgil--de <sgil--de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 13:13:52 by sgil--de          #+#    #+#             */
-/*   Updated: 2025/11/05 10:23:37 by sgil--de         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:52:57 by sgil--de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	result;
+	char	*s_cpy;
 
-	result = 0;
-	while (s[result])
-		result++;
-	return (result);
+	s_cpy = (char *)s;
+	while (*s_cpy)
+		s_cpy++;
+	return (s_cpy - s);
 }
