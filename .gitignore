@@ -1,0 +1,7 @@
+# build artifacts
+*.a
+*.o
+*.d
+.objs/
+.deps/
+a.out
