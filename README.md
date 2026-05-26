@@ -2,11 +2,11 @@
 
 # 📚 libft
 
-**Ma bibliothèque C standard maison — 42 School**
+**My custom C standard library — 42 School**
 
-Réimplémentation propre des fonctions de la libc, étendue avec les
-**listes chaînées**, **`get_next_line`** et **`ft_printf`**, le tout
-réuni dans une seule archive `libft.a`.
+A clean reimplementation of libc functions, extended with
+**linked lists**, **`get_next_line`**, and **`ft_printf`**, all
+combined into a single `libft.a` archive.
 
 ![C](https://img.shields.io/badge/language-C-00599C?logo=c&logoColor=white)
 ![Norm](https://img.shields.io/badge/norminette-passing-success)
@@ -17,34 +17,34 @@ réuni dans une seule archive `libft.a`.
 
 ---
 
-## 📖 Sommaire
+## 📖 Table of Contents
 
-- [Aperçu](#-aperçu)
+- [Overview](#-overview)
 - [Architecture](#-architecture)
 - [Compilation](#-compilation)
-- [Pipeline de build](#-pipeline-de-build)
-- [Utilisation](#-utilisation)
-- [Modules & fonctions](#-modules--fonctions)
-- [Zoom : get_next_line multi-fd](#-zoom--get_next_line-multi-fd)
-- [Zoom : ft_printf](#-zoom--ft_printf)
-- [Norme](#-norme)
+- [Build Pipeline](#-build-pipeline)
+- [Usage](#-usage)
+- [Modules & Functions](#-modules--functions)
+- [Focus: Multi-fd get_next_line](#-focus-multi-fd-get_next_line)
+- [Focus: ft_printf](#-focus-ft_printf)
+- [Norm](#-norm)
 
 ---
 
-## 🔭 Aperçu
+## 🔭 Overview
 
-`libft` regroupe **50 fonctions** réparties en 7 modules. Tout est compilé
-par un **unique `make`** (plus de règle `bonus` séparée) et produit l'archive
-statique `libft.a` à lier dans tes projets.
+`libft` contains **50 functions** divided into 7 modules. Everything is compiled
+with a **single `make`** command (no separate `bonus` rule anymore) and produces
+the static archive `libft.a` that can be linked into your projects.
 
-| Caractéristique | Détail |
+| Feature | Details |
 |---|---|
 | 🧩 Modules | `ctype` · `mem` · `string` · `put` · `list` · `gnl` · `printf` |
-| 📦 Sortie | `libft.a` |
-| 🧾 Header | `includes/libft.h` (unique, tout est dedans) |
+| 📦 Output | `libft.a` |
+| 🧾 Header | `includes/libft.h` (single header, everything included) |
 | 🎯 Flags | `-Wall -Wextra -Werror` |
-| 🧠 GNL | multi-fd, stash **statique sans `malloc`** |
-| ✅ Norme | norminette OK sur `srcs/` et `includes/` |
+| 🧠 GNL | multi-fd, static stash **without `malloc`** |
+| ✅ Standard | norminette OK on `srcs/` and `includes/` |
 
 ---
 
@@ -80,7 +80,7 @@ graph TD
     classDef hdr fill:#334155,stroke:#64748b,color:#fef08a;
 ```
 
-**Dépendances internes** (qui appelle qui) :
+**Internal dependencies** (who calls what):
 
 ```mermaid
 graph LR
@@ -107,14 +107,14 @@ graph LR
 ## ⚙️ Compilation
 
 ```bash
-make          # construit libft.a (libc + listes + gnl + printf)
-make clean    # supprime les objets (.objs) et dépendances (.deps)
-make fclean   # clean + supprime libft.a
-make re       # fclean puis rebuild
-make norm     # lance la norminette sur srcs/ et includes/
+make          # builds libft.a (libc + lists + gnl + printf)
+make clean    # removes object files (.objs) and dependencies (.deps)
+make fclean   # clean + remove libft.a
+make re       # fclean then rebuild
+make norm     # runs norminette on srcs/ and includes/
 ```
 
-Le Makefile affiche une **barre de progression animée** pendant la compilation :
+The Makefile displays an **animated progress bar** during compilation:
 
 ```text
 libft [###############-----------]  58%  ft_atoi
@@ -123,18 +123,18 @@ libft [###############-----------]  58%  ft_atoi
 
 ---
 
-## 🔧 Pipeline de build
+## 🔧 Build Pipeline
 
 ```mermaid
 flowchart LR
-    subgraph dirs["arborescence srcs/*"]
+    subgraph dirs["srcs/* tree"]
         direction TB
         s1["*.c"]
     end
     s1 -->|"cc -Wall -Wextra -Werror<br/>-Iincludes -MMD -MP"| obj[".objs/*.o"]
     s1 -.->|"-MF"| dep[".deps/*.d"]
     obj -->|"ar rcs"| lib["libft.a"]
-    dep -.->|"-include<br/>(rebuild incrémental)"| obj
+    dep -.->|"-include<br/>(incremental rebuild)"| obj
 
     classDef a fill:#1e293b,stroke:#475569,color:#e2e8f0;
     classDef out fill:#00599C,stroke:#013a66,color:#fff;
@@ -142,15 +142,15 @@ flowchart LR
     class lib out;
 ```
 
-- Les **objets** vont dans `.objs/`, les **dépendances** dans `.deps/`.
-- `-MMD -MP` génère les `.d` : modifier un header ne recompile que le nécessaire.
-- `VPATH` permet de garder les sources rangées par module tout en gardant des objets « à plat ».
+- **Objects** go into `.objs/`, **dependencies** into `.deps/`.
+- `-MMD -MP` generates `.d` files: modifying a header only recompiles what's necessary.
+- `VPATH` keeps sources organized by module while keeping object files "flat".
 
 ---
 
-## 🚀 Utilisation
+## 🚀 Usage
 
-Dans ton projet, lie l'archive et inclus le header :
+In your project, link the archive and include the header:
 
 ```c
 #include "libft.h"
@@ -160,37 +160,37 @@ int main(void)
     ft_printf("Hello %s, %d modules!\n", "world", 7);
 
     char **tokens = ft_split("a,b,c", ',');
-    ft_printf("premier token: %s\n", tokens[0]);
+    ft_printf("first token: %s\n", tokens[0]);
 
     t_list *node = ft_lstnew(tokens[0]);
-    ft_printf("taille liste: %d\n", ft_lstsize(node));
+    ft_printf("list size: %d\n", ft_lstsize(node));
     return (0);
 }
 ```
 
 ```bash
 cc main.c -Iincludes -L. -lft -o app
-# ou directement :
+# or directly:
 cc main.c libft.a -Iincludes -o app
 ```
 
 ---
 
-## 🧩 Modules & fonctions
+## 🧩 Modules & Functions
 
-### `ctype` — classification de caractères
+### `ctype` — character classification
 `ft_isalpha` · `ft_isdigit` · `ft_isalnum` · `ft_isascii` · `ft_isprint` · `ft_toupper` · `ft_tolower`
 
-### `mem` — manipulation mémoire
+### `mem` — memory manipulation
 `ft_memset` · `ft_bzero` · `ft_memcpy` · `ft_memmove` · `ft_memchr` · `ft_memcmp` · `ft_calloc`
 
-### `string` — chaînes de caractères
+### `string` — string functions
 `ft_strlen` · `ft_strlcpy` · `ft_strlcat` · `ft_strchr` · `ft_strrchr` · `ft_strncmp` · `ft_strnstr` · `ft_strdup` · `ft_substr` · `ft_strjoin` · `ft_split` · `ft_strtrim` · `ft_strmapi` · `ft_striteri` · `ft_atoi` · `ft_itoa`
 
-### `put` — écriture sur descripteur
+### `put` — file descriptor output
 `ft_putchar_fd` · `ft_putstr_fd` · `ft_putendl_fd` · `ft_putnbr_fd`
 
-### `list` — listes chaînées (`t_list`)
+### `list` — linked lists (`t_list`)
 `ft_lstnew` · `ft_lstadd_front` · `ft_lstadd_back` · `ft_lstsize` · `ft_lstlast` · `ft_lstdelone` · `ft_lstclear` · `ft_lstiter` · `ft_lstmap`
 
 ```c
@@ -201,41 +201,21 @@ typedef struct s_list
 }   t_list;
 ```
 
-### `gnl` — lecture ligne par ligne
-`get_next_line` — lit un fd ligne par ligne, supporte plusieurs descripteurs en parallèle.
+### `gnl` — line-by-line reading
+`get_next_line` — reads an fd line by line, supports multiple descriptors simultaneously.
 
-### `printf` — affichage formaté
-`ft_printf` — conversions supportées : `%c %s %p %d %i %u %x %X %%`
+### `printf` — formatted output
+`ft_printf` — supported conversions: `%c %s %p %d %i %u %x %X %%`
 
 ---
 
-## 🔍 Zoom : `get_next_line` multi-fd
+## 🔍 Focus: Multi-fd `get_next_line`
 
-Le reste de lecture de chaque fd est conservé dans un **tableau statique fixe**
-(`char rest[FD_MAX][BUFFER_SIZE + 1]`) : aucun `malloc` pour le stash, et
-plusieurs fd peuvent être lus en alternance sans se mélanger.
+The remaining data for each fd is stored in a **fixed static array**
+(`char rest[FD_MAX][BUFFER_SIZE + 1]`): no `malloc` for the stash, and
+multiple file descriptors can be read alternately without mixing data.
 
-```mermaid
-flowchart TD
-    start(["get_next_line(fd)"]) --> chk{"fd valide ?<br/>0 ≤ fd < FD_MAX"}
-    chk -- non --> retn["return NULL"]
-    chk -- oui --> dup["buf = strdup(rest[fd])<br/>rest[fd] = \"\""]
-    dup --> loop{"'\n' dans buf<br/>ou EOF ?"}
-    loop -- non --> rd["read(fd, BUFFER_SIZE)<br/>buf = join(buf, temp)"]
-    rd --> loop
-    loop -- oui --> split["split au 1er '\n'"]
-    split --> save["rest[fd] = reste après '\n'"]
-    save --> line["return ligne (malloc)"]
-
-    classDef n fill:#1e293b,stroke:#475569,color:#e2e8f0;
-    classDef ok fill:#065f46,stroke:#10b981,color:#d1fae5;
-    classDef ko fill:#7f1d1d,stroke:#ef4444,color:#fee2e2;
-    class start,chk,dup,loop,rd,split,save n;
-    class line ok;
-    class retn ko;
-```
-
-**Lecture entrelacée de 3 fichiers :**
+**Interleaved reading from 3 files:**
 
 ```mermaid
 sequenceDiagram
@@ -243,23 +223,23 @@ sequenceDiagram
     participant GNL as get_next_line
     participant R as rest[FD_MAX]
     App->>GNL: get_next_line(fdA)
-    GNL->>R: lit/écrit rest[fdA]
-    GNL-->>App: "ligne A1"
+    GNL->>R: read/write rest[fdA]
+    GNL-->>App: "line A1"
     App->>GNL: get_next_line(fdB)
-    GNL->>R: lit/écrit rest[fdB]
-    GNL-->>App: "ligne B1"
+    GNL->>R: read/write rest[fdB]
+    GNL-->>App: "line B1"
     App->>GNL: get_next_line(fdA)
-    GNL->>R: reprend rest[fdA]
-    GNL-->>App: "ligne A2"
+    GNL->>R: resume rest[fdA]
+    GNL-->>App: "line A2"
 ```
 
 ---
 
-## 🖨 Zoom : `ft_printf`
+## 🖨 Focus: `ft_printf`
 
 ```mermaid
 flowchart LR
-    in["chaîne format"] --> scan{"caractère ?"}
+    in["format string"] --> scan{"character ?"}
     scan -- "normal" --> w["write(1, c)"]
     scan -- "'%'" --> conv{"conversion"}
     conv -->|c| pc["ft_putchar"]
@@ -269,7 +249,7 @@ flowchart LR
     conv -->|x / X| px["ft_puthex"]
     conv -->|p| pa["ft_putaddr"]
     conv -->|%| pp["'%'"]
-    w --> cnt["+= compteur"]
+    w --> cnt["+= counter"]
     pc --> cnt
     ps --> cnt
     pn --> cnt
@@ -277,26 +257,23 @@ flowchart LR
     px --> cnt
     pa --> cnt
     pp --> cnt
-    cnt --> ret["return total écrit"]
-
-    classDef n fill:#1e293b,stroke:#475569,color:#e2e8f0;
-    class in,scan,conv,w,pc,ps,pn,pu,px,pa,pp,cnt,ret n;
+    cnt --> ret["return total written"]
 ```
 
 ---
 
-## ✅ Norme
+## ✅ Norm
 
-Tout le code respecte la **norminette** (42). Vérification :
+All code follows the **42 norminette** standard. Verification:
 
 ```bash
 make norm
-# ou
+# or
 norminette srcs includes
 ```
 
 ---
 
 <div align="center">
-<sub>Fait avec ☕ et beaucoup de <code>-Wall -Wextra -Werror</code> — by <b>sgil--de</b></sub>
+<sub>Made with ☕ and lots of <code>-Wall -Wextra -Werror</code> — by <b>sgil--de</b></sub>
 </div>
